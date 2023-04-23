@@ -53,6 +53,12 @@ impl Shop {
     }
 }
 
+impl Default for Shop {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+
 #[cfg(test)]
 mod test {
     use super::*;
