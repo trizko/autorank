@@ -1,4 +1,5 @@
 #![allow(dead_code)]
+use rand::Rng;
 
 #[derive(Debug, PartialEq, Clone)]
 pub struct Card {
@@ -51,6 +52,19 @@ impl Shop {
 
         Shop { inventory }
     }
+
+    pub fn take(&mut self, count: usize) -> Vec<Card> {
+        let mut rng = rand::thread_rng();
+        let mut result: Vec<Card> = vec![];
+
+        for _ in 0..count {
+            let rand_index: usize = rng.gen_range(0..self.inventory.len()) - 1;
+            let card = self.inventory.remove(rand_index);
+            result.push(card)
+        }
+
+        result
+    }
 }
 
 impl Default for Shop {
@@ -75,5 +89,12 @@ mod test {
         let player_1 = Player::new(vec![], vec![]);
         let player_2 = Player::new(vec![], vec![]);
         assert_eq!(player_1, player_2);
+    }
+    #[test]
+    fn shop_take_5_returns_5_cards() {
+        let card_options: &[Card] = &[Card::new("cat", 1, 2), Card::new("dog", 2, 1)];
+        let mut shop = Shop::from_card_options(card_options);
+
+        assert_eq!(shop.take(5).len(), 5);
     }
 }
