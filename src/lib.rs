@@ -1,5 +1,6 @@
 #![allow(dead_code)]
 use rand::Rng;
+use std::fmt::Error;
 
 #[derive(Debug, PartialEq, Clone)]
 pub struct Card {
@@ -65,6 +66,14 @@ impl Shop {
 
         result
     }
+
+    pub fn give(&mut self, cards: Vec<Card>) -> Result<(), Error> {
+        for card in cards {
+            self.inventory.push(card);
+        }
+
+        Ok(())
+    }
 }
 
 impl Default for Shop {
@@ -96,5 +105,15 @@ mod test {
         let mut shop = Shop::from_card_options(card_options);
 
         assert_eq!(shop.take(5).len(), 5);
+    }
+
+    #[test]
+    fn shop_give_grows_inventory_length() {
+        let cards: Vec<Card> = vec![Card::new("cat", 1, 2), Card::new("dog", 2, 1)];
+        let mut shop = Shop::default();
+
+        let _ = shop.give(cards).expect("should return Ok(())");
+
+        assert_eq!(shop.inventory.len(), 2);
     }
 }
