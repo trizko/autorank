@@ -3,18 +3,30 @@ use rand::Rng;
 use std::fmt::Error;
 
 #[derive(Debug, PartialEq, Clone)]
+pub enum Tier {
+    ONE,
+    TWO,
+    THREE,
+    FOUR,
+    FIVE,
+    SIX,
+}
+
+#[derive(Debug, PartialEq, Clone)]
 pub struct Card {
     name: String,
     attack: u32,
     health: u32,
+    tier: Tier,
 }
 
 impl Card {
-    pub fn new(name: &str, attack: u32, health: u32) -> Self {
+    pub fn new(name: &str, attack: u32, health: u32, tier: Tier) -> Self {
         Card {
             name: name.to_string(),
             attack,
             health,
+            tier,
         }
     }
 }
@@ -89,8 +101,8 @@ mod test {
 
     #[test]
     fn card_works() {
-        let card_1 = Card::new("cat", 1, 2);
-        let card_2 = Card::new("cat", 1, 2);
+        let card_1 = Card::new("cat", 1, 2, Tier::ONE);
+        let card_2 = Card::new("cat", 1, 2, Tier::ONE);
         assert_eq!(card_1, card_2);
     }
     #[test]
@@ -101,7 +113,10 @@ mod test {
     }
     #[test]
     fn shop_take_5_returns_5_cards() {
-        let card_options: &[Card] = &[Card::new("cat", 1, 2), Card::new("dog", 2, 1)];
+        let card_options: &[Card] = &[
+            Card::new("cat", 1, 2, Tier::ONE),
+            Card::new("dog", 2, 1, Tier::ONE),
+        ];
         let mut shop = Shop::from_card_options(card_options);
 
         assert_eq!(shop.take(5).len(), 5);
@@ -109,7 +124,10 @@ mod test {
 
     #[test]
     fn shop_give_grows_inventory_length() {
-        let cards: Vec<Card> = vec![Card::new("cat", 1, 2), Card::new("dog", 2, 1)];
+        let cards: Vec<Card> = vec![
+            Card::new("cat", 1, 2, Tier::ONE),
+            Card::new("dog", 2, 1, Tier::ONE),
+        ];
         let mut shop = Shop::default();
 
         let _ = shop.give(cards).expect("should return Ok(())");
