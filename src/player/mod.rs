@@ -1,3 +1,5 @@
+use crate::card::Card;
+
 #[derive(Debug, PartialEq)]
 pub struct Player {
     board: Vec<dyn Card>,
@@ -5,7 +7,7 @@ pub struct Player {
 }
 
 impl Player {
-    pub fn new(hand: Vec<Card>, board: Vec<Card>) -> Self {
+    pub fn new(hand: Vec<dyn Card>, board: Vec<dyn Card>) -> Self {
         Player { board, hand }
     }
 }

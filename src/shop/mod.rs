@@ -1,8 +1,9 @@
 use crate::card::Card;
+use std::io::Error;
 
 #[derive(Debug)]
 pub struct Shop {
-    inventory: Vec<Card>,
+    inventory: Vec<Box<dyn Card>>,
 }
 
 impl Shop {
@@ -10,7 +11,7 @@ impl Shop {
         Shop { inventory: vec![] }
     }
 
-    pub fn from_card_options(card_options: &[Card]) -> Self {
+    pub fn from_card_options(card_options: Vec<Box<dyn Card>>) -> Self {
         let mut inventory: Vec<Card> = vec![];
 
         // build inventory for shop
@@ -23,7 +24,7 @@ impl Shop {
         Shop { inventory }
     }
 
-    pub fn take(&mut self, count: usize) -> Vec<Card> {
+    pub fn take(&mut self, count: usize) -> Vec<Box<dyn Card>> {
         let mut rng = rand::thread_rng();
         let mut result: Vec<Card> = vec![];
 
@@ -36,7 +37,7 @@ impl Shop {
         result
     }
 
-    pub fn give(&mut self, cards: Vec<Card>) -> Result<(), Error> {
+    pub fn give(&mut self, cards: Vec<Box<dyn Card>>) -> Result<(), Error> {
         for card in cards {
             self.inventory.push(card);
         }
