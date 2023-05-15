@@ -1,13 +1,12 @@
 use crate::card::Card;
 
-#[derive(Debug, PartialEq)]
 pub struct Player {
-    board: Vec<dyn Card>,
-    hand: Vec<dyn Card>,
+    board: Vec<Box<dyn Card>>,
+    hand: Vec<Box<dyn Card>>,
 }
 
 impl Player {
-    pub fn new(hand: Vec<dyn Card>, board: Vec<dyn Card>) -> Self {
+    pub fn new(hand: Vec<Box<dyn Card>>, board: Vec<Box<dyn Card>>) -> Self {
         Player { board, hand }
     }
 }
