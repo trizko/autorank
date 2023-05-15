@@ -9,12 +9,8 @@ pub enum Tier {
 }
 
 pub trait Card {
-    fn get_attack(&self) -> u32 {
-        self.attack
-    }
-    fn get_health(&self) -> u32 {
-        self.health
-    }
+    fn get_attack(&self) -> u32;
+    fn get_health(&self) -> u32;
 }
 
 #[derive(Card)]
@@ -44,6 +40,6 @@ mod test {
     fn get_attack_for_dog() {
         let dog = Dog::default();
 
-        assert_eq!(dog.get_attack, 2)
+        assert_eq!(dog.get_attack(), 2)
     }
 }
