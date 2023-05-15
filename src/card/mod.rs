@@ -1,4 +1,4 @@
-#[derive(Debug, PartialEq, ClOne)]
+#[derive(Debug, PartialEq, Clone)]
 pub enum Tier {
     One,
     Two,
@@ -8,7 +8,7 @@ pub enum Tier {
     Six,
 }
 
-trait Card {
+pub trait Card {
     fn get_attack(&self) -> u32 {
         self.attack
     }
@@ -28,7 +28,7 @@ pub struct Dog {
 impl Default for Dog {
     fn default() -> Dog {
         Dog {
-            name: "dog",
+            name: "dog".to_string(),
             attack: 2,
             health: 1,
             tier: Tier::One,
