@@ -1,3 +1,5 @@
+use autorank_derive::Card;
+
 #[derive(Debug, PartialEq, Clone)]
 pub enum Tier {
     One,
@@ -41,5 +43,12 @@ mod test {
         let dog = Dog::default();
 
         assert_eq!(dog.get_attack(), 2)
+    }
+
+    #[test]
+    fn get_health_for_dog() {
+        let dog = Dog::default();
+
+        assert_eq!(dog.get_health(), 1)
     }
 }
