@@ -1,6 +1,6 @@
 use crate::card::Card;
-use std::io::Error;
 use rand::Rng;
+use std::io::Error;
 
 #[derive(Debug)]
 pub struct Shop {
