@@ -1,5 +1,6 @@
 use crate::card::Card;
 use std::io::Error;
+use rand::Rng;
 
 #[derive(Debug)]
 pub struct Shop {
@@ -12,12 +13,12 @@ impl Shop {
     }
 
     pub fn from_card_options(card_options: Vec<Box<dyn Card>>) -> Self {
-        let mut inventory: Vec<Card> = vec![];
+        let mut inventory: Vec<Box<dyn Card>> = vec![];
 
         // build inventory for shop
         for card in card_options {
             for _ in 0..10 {
-                inventory.push(card.clone());
+                inventory.push(dyn_clone::clone_box(&*card));
             }
         }
 
@@ -26,12 +27,12 @@ impl Shop {
 
     pub fn take(&mut self, count: usize) -> Vec<Box<dyn Card>> {
         let mut rng = rand::thread_rng();
-        let mut result: Vec<Card> = vec![];
+        let mut result: Vec<Box<dyn Card>> = vec![];
 
         for _ in 0..count {
             let rand_index: usize = rng.gen_range(0..self.inventory.len()) - 1;
             let card = self.inventory.remove(rand_index);
-            result.push(card)
+            result.push(card);
         }
 
         result

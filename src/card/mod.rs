@@ -1,4 +1,6 @@
 use autorank_derive::Card;
+use dyn_clone::DynClone;
+use std::fmt::Debug;
 
 #[derive(Debug, PartialEq, Clone)]
 pub enum Tier {
@@ -10,12 +12,12 @@ pub enum Tier {
     Six,
 }
 
-pub trait Card {
+pub trait Card: DynClone + Debug {
     fn get_attack(&self) -> u32;
     fn get_health(&self) -> u32;
 }
 
-#[derive(Card)]
+#[derive(Card, Clone, Debug)]
 pub struct Dog {
     name: String,
     attack: u32,

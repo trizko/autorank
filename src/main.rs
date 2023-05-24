@@ -1,12 +1,12 @@
-use autorank::{Card, Shop, Tier};
+use autorank::card::{Card, Dog};
+use autorank::shop::Shop;
 
 fn main() {
-    let card_options: &[Card] = &[
-        Card::new("cat", 1, 2, Tier::ONE),
-        Card::new("dog", 2, 1, Tier::ONE),
+    let cards: Vec<Box<dyn Card>> = vec![
+        Box::new(Dog::default()),
     ];
 
-    let shop = Shop::from_card_options(card_options);
+    let shop = Shop::from_card_options(cards);
 
     println!("{:?}", shop);
 }
