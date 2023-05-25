@@ -1,5 +1,5 @@
-use autorank::card::{Card, Dog};
-use autorank::shop::Shop;
+use arlib::card::{Card, Dog};
+use arlib::shop::Shop;
 
 fn main() {
     let cards: Vec<Box<dyn Card>> = vec![Box::<Dog>::default()];

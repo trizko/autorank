@@ -1,4 +1,4 @@
-use autorank_derive::Card;
+use derive::Card;
 use dyn_clone::DynClone;
 use std::fmt::Debug;
 
