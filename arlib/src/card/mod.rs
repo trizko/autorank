@@ -1,3 +1,5 @@
+#![allow(dead_code)]
+
 use derive::Card;
 use dyn_clone::DynClone;
 use std::fmt::Debug;
